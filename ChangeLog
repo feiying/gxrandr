@@ -1,0 +1,26 @@
+ChangeLog:
+
+
+gxrandr 2.3 ( 2012-06-12 )
+
+	1. moved all the pictures to share/ dir.
+	
+	2. moved all desktop files to share/ dir.
+	
+	3. moved all the source files to src/ dir.
+	
+	4. fixed a bug as follwing description says:
+		(gxrandr:7166): Gtk-CRITICAL **: IA__gtk_widget_set_size_request: assertion `GTK_IS_WIDGET (widget)' failed
+		
+	5. refactored all the code in gxrandr.c, much easier to matain.
+	
+	6. fixed a bug: when the user switch to other modes,
+		the user unplugged the projecter.
+		
+	7. placed the startup desktop file in more places, easier to locate this tool.
+	
+	8. add a limit: only one process is allowed to be running simultaneously.
+	
+	9. a stronger Makefile introduced.
+	
+	10. merged all patches from ShiAnSheng & PengYan.

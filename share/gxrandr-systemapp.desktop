@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=gxrandr
+Name[zh_CN]=投影切换
+GenericName=gxrandr
+GenericName[zh_CN]=投影切换
+Comment=choose a monitor mode
+Comment[zh_CN]=修改计算机屏幕到投影仪的对应关系
+Exec=/usr/bin/gxrandr
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=/usr/share/gxrandr/icon.png
+Version=1.0
+Encoding=UTF-8
+Categories=GTK;Utility;X-Projecter;System;
