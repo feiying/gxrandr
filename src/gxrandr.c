@@ -6,7 +6,6 @@
 #include <unistd.h>
 #include <gdk/gdkkeysyms.h>
 #include <unistd.h>
-
 #include "gxrandr.h"
 
 static GtkWidget *window = NULL; // 主窗口
