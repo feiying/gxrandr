@@ -36,65 +36,66 @@ static void change_mode(int mode);
 
 void event_execute(gint event)
 {
-   printf("enter event_execute\n");
-   switch(event)
-   {
-      case 0:
-         system("gxrandr-switch-mode.sh COMPUTER");
-        system("rm /tmp/myp_exist");
-         
-         printf("gx0\n");
-	gtk_main_quit();
-      break;
+	printf("enter event_execute\n");
+	switch(event)
+	{
+		case 0:
+			system("gxrandr-switch-mode.sh COMPUTER");
+			system("rm /tmp/myp_exist");
+			printf("gx0\n");
+			gtk_main_quit();
+			break;
 
-      case 1:
-          system("gxrandr-switch-mode.sh DUPLICATE");
-        system("rm /tmp/myp_exist");
-         printf("gx1\n");
-	gtk_main_quit();
-       break;
+		case 1:
+			system("gxrandr-switch-mode.sh DUPLICATE");
+			system("rm /tmp/myp_exist");
+			printf("gx1\n");
+			gtk_main_quit();
+			break;
 
-      case 2:
-          system("gxrandr-switch-mode.sh EXTENSION");
-        system("rm /tmp/myp_exist");
-         printf("gx2\n");
-	gtk_main_quit();
-      break;
+		case 2:
+			system("gxrandr-switch-mode.sh EXTENSION");
+			system("rm /tmp/myp_exist");
+			printf("gx2\n");
+			gtk_main_quit();
+			break;
 
-      case 3:
-          system("gxrandr-switch-mode.sh PROJECTOR");
-        system("rm /tmp/myp_exist");
-         printf("gx3\n");
-	gtk_main_quit();
-      break;
-    }
+		case 3:
+			system("gxrandr-switch-mode.sh PROJECTOR");
+			system("rm /tmp/myp_exist");
+			printf("gx3\n");
+			gtk_main_quit();
+			break;
+Default:
+			break;
+	}
 }
 
 static void key_value(GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-  if( event->keyval == 0xffeb )
-        {
-                mode_chosen = (mode_chosen+1)%4;
-                change_mode(mode_chosen);
-        }
-    else if( event->keyval == 0xff0d )
-    {
-        printf("enter or button is pressed\n");
-                event_execute(mode_chosen);
-    }
+	if( event->keyval == 0xffeb )
+	{
+		mode_chosen = (mode_chosen+1)%4;
+		change_mode(mode_chosen);
+	}
+	else if( event->keyval == 0xff0d )
+	{
+		printf("enter or button is pressed\n");
+		event_execute(mode_chosen);
+	}
 
-    else if( event->keyval == 0xff53)
-    {
-                mode_chosen = (mode_chosen+1)%4;
-                change_mode(mode_chosen);
-    }
-    else if( event->keyval == 0xff51)
-    {
-                mode_chosen = (mode_chosen+3)%4;
-                change_mode(mode_chosen);
-    }
+	else if( event->keyval == 0xff53)
+	{
+		mode_chosen = (mode_chosen+1)%4;
+		change_mode(mode_chosen);
+	}
+	else if( event->keyval == 0xff51)
+	{
+		mode_chosen = (mode_chosen+3)%4;
+		change_mode(mode_chosen);
+	}
 
-        printf("the keyval is %x\n",event->keyval);
+	printf("the keyval is %x\n",event->keyval);
 
 }
 
@@ -103,7 +104,7 @@ static void change_mode(int mode) {
 		g_print("[ERROR] Unrecognizable mode(%d)\n",mode);
 		return;
 	}
-    mode_chosen = mode;
+	mode_chosen = mode;
 	if ( current_mode != mode ) {
 		//gtk_widget_set_visible(frame[mode], TRUE);
 		gtk_fixed_move(GTK_FIXED(fixed), frame, frame_pos[mode], 0);
@@ -116,7 +117,7 @@ static void get_display_metrics()
 	GdkScreen* screen = gdk_screen_get_default();
 	screen_width = gdk_screen_get_width(screen);
 	screen_height = gdk_screen_get_height(screen);
-	
+
 	if ( screen_width > 1440 ) {
 		screen_width = 1440;
 	}
@@ -147,17 +148,17 @@ static void update_widget_sizes()
 static gboolean press_handler(GtkWidget* widget, GdkEvent* event, gpointer user_data)
 {
 	change_mode((int)user_data);
-        
-        event_execute((int)user_data);
-        
+
+	event_execute((int)user_data);
+
 	return FALSE;
 }
 
 static gboolean close_handler(GtkWidget* widget, GdkEvent* event, gpointer user)
 {
 	gtk_main_quit();
-        system("rm /tmp/myp_exist");
-//	system("rm -f /tmp/gxrandr.pid; rm -f /tmp/gxrandr");
+	system("rm /tmp/myp_exist");
+	//	system("rm -f /tmp/gxrandr.pid; rm -f /tmp/gxrandr");
 	return FALSE;
 }
 
@@ -197,7 +198,7 @@ void init(int argc, char* argv[]) {
 
 	// getopt, getopt_long, getopt_long_only, optarg, opterr, optopt
 	int c = getopt(argc, argv, "m:");
-	
+
 	if ( c == 'm' ) {
 		cmd_mode = 1;
 		cmd_mode_no = atoi(optarg);
@@ -210,7 +211,7 @@ void init(int argc, char* argv[]) {
 }
 
 void create_main_window() {
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_resize(GTK_WINDOW(window), win_width, win_height);
 	gtk_window_set_opacity(GTK_WINDOW(window), 0.8f);
 
@@ -219,7 +220,7 @@ void create_main_window() {
 	//destroy-event
 	g_signal_connect( G_OBJECT(window), "destroy",G_CALLBACK(gtk_main_quit), NULL);
 
-    gtk_window_set_decorated(GTK_WINDOW(window), FALSE); /* hide the title bar and the boder */
+	gtk_window_set_decorated(GTK_WINDOW(window), FALSE); /* hide the title bar and the boder */
 	gtk_container_set_border_width(GTK_CONTAINER(window), 0);
 }
 
@@ -230,7 +231,7 @@ void create_close_button() {
 	closebtn_pixbuf[1] = gdk_pixbuf_new_from_file_at_scale(CLOSEBTN_ENTERED_PNG, 32, 32, FALSE, NULL);
 
 	closebtn = gtk_image_new_from_pixbuf(closebtn_pixbuf[0]);
-	
+
 	closebtn_event_box = gtk_event_box_new();
 	gtk_container_add(GTK_CONTAINER(closebtn_event_box), closebtn);
 
@@ -238,7 +239,7 @@ void create_close_button() {
 	gtk_widget_show(closebtn_event_box);
 	gtk_widget_show(closebtn);
 	gtk_event_box_set_visible_window((GtkEventBox*)closebtn_event_box, FALSE);
-	
+
 	g_signal_connect(G_OBJECT(closebtn_event_box), "button-press-event", G_CALLBACK(close_handler), NULL);
 	g_signal_connect(G_OBJECT(closebtn_event_box), "enter-notify-event", G_CALLBACK(closebtn_enter_handler), NULL);
 	g_signal_connect(G_OBJECT(closebtn_event_box), "leave-notify-event", G_CALLBACK(closebtn_leave_handler), NULL);
@@ -260,16 +261,16 @@ void create_window_background() {
 
 void create_highlight_widget() {
 	if(0==access("/tmp/computer.mode",F_OK))
-           mode_chosen=0;
-        else if (0==access("/tmp/duplicate.mode",F_OK))
-           mode_chosen=1;
-        else if (0==access("/tmp/extension.mode",F_OK))
-           mode_chosen=2;
-        else if (0==access("/tmp/projector.mode",F_OK))
-           mode_chosen=3;
-        else
-           ;
-        printf ("mode_chosen:%d\n", mode_chosen);
+		mode_chosen=0;
+	else if (0==access("/tmp/duplicate.mode",F_OK))
+		mode_chosen=1;
+	else if (0==access("/tmp/extension.mode",F_OK))
+		mode_chosen=2;
+	else if (0==access("/tmp/projector.mode",F_OK))
+		mode_chosen=3;
+	else
+		;
+	printf ("mode_chosen:%d\n", mode_chosen);
 	frame = gtk_image_new_from_file_at_scale( FRAME_PNG, win_height,  win_height);
 	gtk_fixed_put(GTK_FIXED(fixed), frame, frame_pos[mode_chosen], 0);
 	gtk_widget_show(frame);
@@ -291,7 +292,7 @@ void create_main_buttons() {
 	for ( i = 0; i < 4; i++ ) {
 		image[i] = gtk_image_new_from_file_at_scale( paths[i], win_height * 2 / 3, win_height * 2 / 3);
 		gtk_widget_set_size_request( image[i], win_height, win_height );
-	
+
 		event_box[i] = gtk_event_box_new();
 		gtk_container_add(GTK_CONTAINER(event_box[i]), image[i]);
 
@@ -317,29 +318,28 @@ void create_user_interface() {
 
 void process_exist()
 {
-    if(0==access("/tmp/myp_exist",F_OK))
-    exit(0);
-    else
-    system("touch /tmp/myp_exist");    
+	if(0==access("/tmp/myp_exist",F_OK))
+		exit(0);
+	else
+		system("touch /tmp/myp_exist");    
 }
 
 int main(int argc, char* argv[])
 {
 	init(argc, argv);
-        process_exist(); 
-        system("gxrandr-switch-mode.sh get");
+	process_exist(); 
+	system("gxrandr-switch-mode.sh get");
 	create_user_interface();
 	gtk_widget_show(window);
 
-    g_signal_connect(G_OBJECT(window), "key-press-event", G_CALLBACK(key_value), NULL);
+	g_signal_connect(G_OBJECT(window), "key-press-event", G_CALLBACK(key_value), NULL);
 
-    gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window),TRUE);
+	gtk_window_set_skip_taskbar_hint(GTK_WINDOW(window),TRUE);
 
- g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(close_handler), NULL);
+	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(close_handler), NULL);
 
 
-    gtk_main();
+	gtk_main();
 
-    return 0;
-
+	return 0;
 }
